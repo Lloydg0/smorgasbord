@@ -8,24 +8,20 @@ new Vue({
         images: [],
     },
     mounted: function () {
-        var scroll = this;
-        window.addEventListener("scroll", function () {
-            scroll.windowTop = window.scrollY;
-
-            // document
-            //     .getElementsByClassName(fullCard)
-            //     .css("opacity", 1 - window.scrollTop() / 1);
-
-            console.log("THAT", scroll.windowTop);
-        });
+        // var scroll = this;
+        // window.addEventListener("scroll", function () {
+        //     scroll.windowTop = window.scrollY;
+        //     console.log("THAT", scroll.windowTop);
+        // });
         console.log("this in mounted", this);
         axios.get("/imageboard").then((response) => {
-            console.log("Response in axios", response.data.rows);
-            this.images = response.data.rows;
+            console.log("Response in axios", response);
+            console.log("Response in axios", response.data);
+            this.images = response.data;
             console.log("this in axios", this);
         });
     },
     method: {
-        // fadeOut: function (e) {},
+        // fadeOut: function () {},
     },
 });
