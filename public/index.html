@@ -1,10 +1,36 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/style.css">
+    <title>Image Board</title>
 </head>
 <body>
-    <script src="/js/vue.js"></script>
-    <script src="/js/axios.min.js"></script>
-</body>
-</html>
+    <div id="main">
+        <nav class="navbar">
+            <h4 class="navbar-title">Image Board</h4>
+            <h4 class="navbar-about">About</h4>
+        </nav>
+
+        <transition name="fade">
+        <div class="card-container">
+            <div  v-for="image in images" v-bind:key="image.url"  class="fullCard">
+                <img class="card-images" :src="image.url" alt="">
+                <div class="card-text">
+                    <h4 class="card-title"><strong>{{image.title}}</strong></h4>
+                    <p class="card-description">{{image.description}}</p>
+                </div>
+            </div>
+            
+        </div>
+    </transition>
+    </div>
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/script.js"></script>
+    </body>
+    </html>
+    
+    
