@@ -13,7 +13,10 @@
 }
 
 h4,
-p {
+p,
+.input-field,
+button,
+.choose-file-button {
     font-family: "Roboto-condensed", sans-serif;
     font-weight: 100;
 }
@@ -73,3 +76,69 @@ p {
 .card-title {
     padding-bottom: 5px;
 }
+
+.bottom-navbar {
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: -1;
+}
+
+.bottom-navbar .input-field,
+.input-field-file-upload {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.input-field,
+.input-field-file-upload {
+    border: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 6px;
+    width: 180px;
+    height: 20px;
+}
+
+.input-field::placeholder,
+.input-field-file-upload::placeholder,
+.choose-file-button::placeholder {
+    font-size: 12px;
+}
+
+.input-field:focus,
+.input-field-file-upload:focus,
+.choose-file-button:focus {
+    outline: none;
+}
+
+.upload-button {
+    background: none;
+    border: none;
+    padding-left: 10px;
+}
+
+#choose-file-label {
+    visibility: hidden;
+    width: 0.1px;
+}
+.choose-file-button {
+    border: none;
+    width: 110px;
+    padding-left: 20px;
+    font-size: 13.33px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+/* input[type="file"] {
+    display: none;
+} */
