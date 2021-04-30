@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const db = require("./sql/db.js");
-
+const s3 = require("./s3");
+let s3url = require("./config.json");
 //the following ocde is required to uoload files
 const multer = require("multer");
 const uidSafe = require("uid-safe");
@@ -42,18 +43,34 @@ app.get("/imageboard", (req, res) => {
 });
 
 //POST request to uploads the images
-app.post("/upload", uploader.single("file"), (req, res) => {
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("upload Worked!!!!");
     //insert into DB  (filename, title, description, username)
     console.log("req.body", req.body);
     console.log("req.file", req.file); // req.file comes fom multer
     if (req.file) {
         // this will run if everything works
-        //inster into images
-        // send back a response using res.json
-        res.json({
-            success: true,
-        });
+        let s3Url = s3url.s3Url;
+        const prefixedFilename = s3Url.concat(req.file.filename);
+        console.log("Prefixed Filename", prefixedFilename);
+        //instert into images
+        db.addImageUploadToAWS(
+            prefixedFilename,
+            req.body.username,
+            req.body.title,
+            req.body.description
+        )
+            .then((result) => {
+                console.log("Result in addimageUpload to AWS", result);
+                // send back a response using res.json
+                res.json({
+                    success: true,
+                    payload: result.rows,
+                });
+            })
+            .catch((err) => {
+                console.log("Error in adding the img to AWS", err);
+            });
     } else {
         //this runs if something broke
         // send back a response to vue using res.json

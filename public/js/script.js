@@ -49,8 +49,10 @@ new Vue({
             //second argument must be an object
             axios
                 .post("/upload", formData)
-                .then(() => {
-                    console.log("response recievedf from server");
+                .then((response) => {
+                    console.log("response recieved from server", response);
+                    console.log("response data", response.data.payload[0]);
+                    this.images.push(response.data.payload[0]);
                 })
                 .catch((err) => {
                     console.log("err in POST/upload", err);
