@@ -170,6 +170,17 @@ button,
     height: 100vh;
     position: absolute;
     top: 85%;
+    /* left: 00%; */
+    animation: moveToMiddle 500ms linear;
+}
+
+@keyframes moveToMiddle {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 .upload-modal-cover {
@@ -181,6 +192,7 @@ button,
     justify-content: center;
     align-items: center;
 }
+
 .upload-modal-container {
     display: flex;
     flex-direction: row;
@@ -220,7 +232,16 @@ button,
     top: 6%;
     z-index: 2;
     background-color: white;
-    overflow-y: hidden;
+    animation: opacity 500ms linear;
+    animation-fill-mode: forwards;
+}
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .full-card-model {
@@ -230,7 +251,17 @@ button,
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    animation: moveToCenter 500ms linear;
 }
+@keyframes moveToCenter {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .card-image-model {
     width: 500px;
     height: 500px;
