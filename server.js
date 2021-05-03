@@ -42,6 +42,22 @@ app.get("/imageboard", (req, res) => {
         });
 });
 
+//get image data for the single model
+app.get("/imagemodel/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.getImagesDataBaseInformationForModel(imageId)
+        .then((result) => {
+            console.log("DATA BASE INFO for Model", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log(
+                "ERROR in retrieving Information from Database for the single image model",
+                err
+            );
+        });
+});
+
 //POST request to uploads the images
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("upload Worked!!!!");

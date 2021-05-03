@@ -2,8 +2,13 @@ const spicedPg = require("spiced-pg");
 const db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
 module.exports.getImagesDataBaseInformation = () => {
-    const q = `SELECT url, username, title, description FROM images`;
+    const q = `SELECT id, url, username, title, description FROM images`;
     return db.query(q);
+};
+
+module.exports.getImagesDataBaseInformationForModel = (imageId) => {
+    const q = `SELECT * FROM images WHERE ID = $1 `;
+    return db.query(q, [imageId]);
 };
 
 module.exports.addImageUploadToAWS = (url, username, title, description) => {

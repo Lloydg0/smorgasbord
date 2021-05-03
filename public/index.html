@@ -5,38 +5,71 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/style.css">
-    <title>Image Board</title>
+    <title>Smorgasbord</title>
 </head>
 <body>
     <div id="main">
         <nav class="navbar">
             <h4 class="navbar-title">Smorgasbord</h4>
-            <h4 class="navbar-about">Upload</h4>
+            <upload-component v-if='showUpload' @close="closeUploadModel" @imagepush="pushingImages"></upload-component>
+            <button
+            @click="showUploadModel" class="navbar-about">Upload</button>
         </nav>
-         <form class="upload-form">
-                <input v-model="title" class="input-field" type="text" name="title" id="" placeholder="Title">
-                <input v-model="description" class="input-field" type="text" name="description" id="" placeholder="Description">
-                <input v-model="username" class="input-field" type="text" name="username" id="" placeholder="Username">
-                <label for="files" class="choose-file-button">Choose a file</label>
-                <input @change="handleChange" id="files" type="file" name="file" accept="image/*">
-                <button @click.prevent="submitFile" class="upload-button">Upload</button>
-            </form>
         
-
+        
+        <!-- <image-model-component v-if="showImagePopUp" @close="closeImageModel"></image-model-component> -->
+        <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
         <div class="card-container">
-            <div  v-for="image in images" v-bind:key="image.id"  class="fullCard">
+            <div  v-for="image in images" v-bind:key="image.id" @click="showImageModel(image.id)"  class="fullCard">
                 <img class="card-images" :src="image.url" alt="">
                 <div class="card-text">
-                    <h4 class="card-title"><strong>{{image.title}}</strong></h4>
-                    <p class="card-description">{{image.description}}</p>
+                    <!-- <h4 class="card-title"><strong>{{image.title}}</strong></h4>
+                    <p class="card-description">{{image.description}}</p> -->
                 </div>
             </div>
         </div>
-        <!-- <h1>{{title}}</h1>
-        <h1>{{description}}</h1>
-        <h1>{{username}}</h1> -->
         
     </div>
+
+    <!-- image model componenet -->
+
+    <script id="image-model-template" type="text/x-template">
+
+        <div class="full-image-model-container">
+            <div class="full-card-model">
+                   <img class="card-image-model" :src="image.url" alt="">
+               <div class="card-text-model">
+                       <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
+                       <p class="card-description-model">{{image.description}}</p>
+                       <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
+                       <p class="card-description-model-finish" @click="closeModelOnPopUp">Close</p>
+                       
+               </div>
+           </div>
+        </div>
+    </script>
+
+    <!-- componants go outside the #main element -->
+    <script id="upload-template" type="text/x-template">
+       <!-- components can only render one element at a time -->
+        <!-- but can render as many children within the one root element -->
+        <div class="model-housing">
+            <div class="upload-modal-cover">
+                    <div class="upload-modal-container">
+                        <form class="upload-form">
+                               <input v-model="title" class="input-field" type="text" name="title" id="" placeholder="Title">
+                               <input v-model="description" class="input-field" type="text" name="description" id="" placeholder="Description">
+                               <input v-model="username" class="input-field" type="text" name="username" id="" placeholder="Username">
+                               <label for="files" class="choose-file-button">Choose a file</label>
+                               <input @change="handleChange" id="files" type="file" name="file" accept="image/*">
+                               <button @click.prevent="submitFile" class="upload-button">Upload</button>
+                               <label @click="closeModel" class="finsihed-button" >Finished</label>
+                           </form>
+                    </div>
+                </div>
+        </div>
+    </script>
+    
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/script.js"></script>
@@ -44,3 +77,15 @@
     </html>
     
     
+    <!-- <div class="upload-modal-cover">
+            <div class="upload-modal-container"> -->
+                <!-- <form class="upload-form">
+                       <input v-model="title" class="input-field" type="text" name="title" id="" placeholder="Title">
+                       <input v-model="description" class="input-field" type="text" name="description" id="" placeholder="Description">
+                       <input v-model="username" class="input-field" type="text" name="username" id="" placeholder="Username">
+                       <label for="files" class="choose-file-button">Choose a file</label>
+                       <input @change="handleChange" id="files" type="file" name="file" accept="image/*">
+                       <button @click.prevent="submitFile" class="upload-button">Upload</button>
+                   </form> -->
+            <!-- </div>
+        </div> -->
