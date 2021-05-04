@@ -30,6 +30,16 @@ const uploader = multer({
 //getting static folders
 app.use(express.static("public"));
 
+// url encoded parser
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
+
+app.use(express.json());
+//
+
 //get request to get images from DB
 app.get("/imageboard", (req, res) => {
     db.getImagesDataBaseInformation()
@@ -42,7 +52,7 @@ app.get("/imageboard", (req, res) => {
         });
 });
 
-//get image data for the single model
+//GET request for a specific image for the single model PopUp
 app.get("/imagemodel/:imageId", (req, res) => {
     const { imageId } = req.params;
     db.getImagesDataBaseInformationForModel(imageId)
@@ -55,6 +65,46 @@ app.get("/imagemodel/:imageId", (req, res) => {
                 "ERROR in retrieving Information from Database for the single image model",
                 err
             );
+        });
+});
+
+//GET request for comments on a specific image on the Model PopUp
+app.get("/comments/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.retrieveImageComments(imageId)
+        .then((result) => {
+            console.log(
+                "Get request for getting comments on selected image",
+                result
+            );
+            res.json({
+                success: true,
+                payload: result.rows,
+            });
+        })
+        .catch((err) => {
+            console.log(
+                "ERROR in retrieving comments information from DATABASE",
+                err
+            );
+        });
+});
+
+//POST request for adding comments
+app.post("/comments", (req, res) => {
+    console.log("Adding comments worked!");
+    console.log("Seeing the request body inserted", req.body);
+    const { imageId, comment, username } = req.body;
+    db.postingComments(imageId, comment, username)
+        .then((result) => {
+            console.log("Result in posting comments", result.rows);
+            res.json({
+                success: true,
+                payload: result.rows,
+            });
+        })
+        .catch((err) => {
+            console.log("ERROR in posting comments", err);
         });
 });
 

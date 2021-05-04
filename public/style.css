@@ -3,6 +3,7 @@
     box-sizing: border-box;
 }
 
+/* ----------- Navbar ------------  */
 .navbar {
     z-index: 5;
     width: 100vw;
@@ -13,16 +14,20 @@
     background-color: white;
 }
 
+/* Assigning Font poroperies to multiple Elements */
 h4,
 p,
-.input-field,
 button,
+.input-field,
+.input-field-comment,
 .choose-file-button,
-.finsihed-button {
+.finsihed-button,
+.submit-comment-button {
     font-family: "Roboto-condensed", sans-serif;
     font-weight: 100;
 }
 
+/* applying function positioning and styles to nav bar elements */
 .finsihed-button {
     padding-top: 10px;
 }
@@ -43,6 +48,9 @@ button,
     background: none;
     border: none;
 }
+/* ----------End of nav bar ----------- */
+
+/* ---------- Main SPA display ------------ */
 
 .card-container {
     padding: 50px 170px;
@@ -70,7 +78,7 @@ button,
 
 .fullCard:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 
 .card-text {
@@ -88,8 +96,13 @@ button,
     padding-bottom: 5px;
 }
 
+/* ---------- END of Main SPA display ------------ */
+
+/* ----------- Styling on the upload Pop up Model & various input fields and buttons ---------------- */
+
 .input-field,
-.input-field-file-upload {
+.input-field-file-upload,
+.input-field-comment {
     float: left;
     display: block;
     color: black;
@@ -100,9 +113,9 @@ button,
 }
 
 .input-field,
-.input-field-file-upload {
+.input-field-file-upload,
+.input-field-comment {
     border: none;
-    /* border-bottom: 1px solid black; */
     margin-bottom: 6px;
     width: 250px;
     height: 20px;
@@ -110,24 +123,27 @@ button,
 
 .input-field::placeholder,
 .input-field-file-upload::placeholder,
+.input-field-comment::placeholder,
 .choose-file-button::placeholder,
-.finsihed-button::placeholder {
+.finsihed-button::placeholder,
+.submit-comment-button::placeholder {
     font-size: 12px;
     text-align: center;
 }
 
 .input-field:focus,
 .input-field-file-upload:focus,
+.input-field-comment:focus,
 .choose-file-button:focus,
 .upload-button:focus,
-.finsihed-button:focus {
+.finsihed-button:focus,
+.submit-comment-button:focus {
     outline: none;
 }
 
 .upload-button {
     background: none;
     border: none;
-    /* padding-left: 10px; */
     cursor: pointer;
 }
 
@@ -136,10 +152,10 @@ button,
     width: 0.1px;
 }
 .choose-file-button,
-.finsihed-button {
+.finsihed-button,
+.submit-comment-button {
     border: none;
     width: 250px;
-    /* padding-left: 20px; */
     font-size: 13.33px;
     height: 20px;
     margin-top: 10px;
@@ -147,7 +163,12 @@ button,
     text-align: center;
 }
 
-.upload-form {
+/* ----------- END of Styling on the upload Pop up Model & various input fields and buttons ---------------- */
+
+/* ----------- Styling of whole form elements ------------ */
+
+.upload-form,
+.comments-form {
     width: 100vw;
     position: absolute;
     display: flex;
@@ -158,8 +179,17 @@ button,
     flex-wrap: wrap;
     height: auto;
 }
+.comments-form {
+    width: 25vh;
+    margin-top: 150px;
+    /* align-content: flex-end; */
+}
 
-/* modal stuff */
+/* ----------- END of Styling of whole form elements ------------ */
+
+/* ------------ Styling for model copntainers(text/image/button) + animations on the selected image pop up model ---------------- */
+
+/* Model housing's for upload model */
 .model-housing {
     display: flex;
     flex-direction: row;
@@ -170,11 +200,10 @@ button,
     height: 100vh;
     position: absolute;
     top: 85%;
-    /* left: 00%; */
-    animation: moveToMiddle 500ms linear;
+    animation: riseFromBottom 500ms linear;
 }
-
-@keyframes moveToMiddle {
+/* animation for upload model to make it rise from the botton */
+@keyframes riseFromBottom {
     0% {
         transform: translateY(100%);
     }
@@ -202,27 +231,11 @@ button,
     height: 350px;
     padding: 20px 30px;
     border-radius: 5px;
-
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); */
-    /* transition: all 2s ease; */
-    /* transition-timing-function: ease-in;
-    transition: 2s; */
 }
-/* .modal-enter {
-    opacity: 1;
-}
+/* End of Model housing's for upload model */
 
-.modal-leave-active {
-    opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-} */
-
-.full-image-model-container {
+/* Model housing for selected Image model */
+.full-selected-image-model-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -235,6 +248,7 @@ button,
     animation: opacity 500ms linear;
     animation-fill-mode: forwards;
 }
+/* Selected Image model animation for background opacity */
 @keyframes opacity {
     0% {
         opacity: 0;
@@ -244,16 +258,18 @@ button,
     }
 }
 
-.full-card-model {
-    width: 75vw;
+.selected-image-model {
+    width: 85vw;
     height: 75vh;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    animation: moveToCenter 500ms linear;
+    justify-content: center;
+    align-items: flex-start;
+    /* align-items: center; */
+    animation: scaleSelectedImageModel 500ms linear;
 }
-@keyframes moveToCenter {
+/* Selected Image model animation for scaling the model up*/
+@keyframes scaleSelectedImageModel {
     0% {
         transform: scale(0);
     }
@@ -261,15 +277,19 @@ button,
         transform: scale(1);
     }
 }
-
-.card-image-model {
+/* image container model */
+.image-container-in-model {
     width: 500px;
     height: 500px;
 }
 
-.card-text-model {
+/* text container on model */
+.text-container-in-model {
     display: block;
+    margin-top: 70px;
     margin-left: 30px;
+    height: 500px;
+    width: 500px;
 }
 
 .card-title-model,
@@ -278,7 +298,26 @@ button,
     display: flex;
     flex-wrap: wrap;
 }
-
-.card-description-model-finish {
+/* close button on selected image model */
+.close-selected-image-model {
+    padding-top: 10px;
     cursor: pointer;
+}
+
+/* Each comment  */
+.card-comments {
+    padding: 2px 0px;
+    margin-left: 15px;
+}
+
+/* comment box */
+.comment-box-container {
+    margin-top: 85px;
+    height: 200px;
+    /* width: 400px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: center;
+    overflow-y: auto;
 }
