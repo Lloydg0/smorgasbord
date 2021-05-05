@@ -20,16 +20,28 @@
         <!-- Vue component that pops up a single model when a single image is selected in relation to its ID -->
         <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
         <div class="card-container">
-            <div  v-for="image in images" v-bind:key="image.id" @click="showImageModel(image.id)"  class="fullCard">
+
+             <a :href="'#' + image.id" v-for="image in images" v-bind:key="image.id" class="fullCard">
+                <img  class="card-images" :src="image.url" alt="">
+                     <div class="card-text"> 
+                            <!-- <h4 class="card-title"><strong>{{image.title}}</strong></h4>
+                            <p class="card-description">{{image.description}}</p>  -->
+                    </div>
+            </a>
+
+        </div> 
+           
+             <!-- <div  v-for="image in images" v-bind:key="image.id" @click="showImageModel(image.id)"  class="fullCard">
                 <img class="card-images" :src="image.url" alt="">
-                <div class="card-text">
-                    <!-- <h4 class="card-title"><strong>{{image.title}}</strong></h4>
-                    <p class="card-description">{{image.description}}</p> -->
-                </div>
-            </div>
+                <div class="card-text"> 
+                    <h4 class="card-title"><strong>{{image.title}}</strong></h4>
+                    <p class="card-description">{{image.description}}</p>
+                 </div>
+            </div> 
+            </div> -->
             <!-- Clicking event listener to add more rows to the image main page -->
             <button v-if="!lowestIdOnScreen" @click="clickToAddMoreImages" class="more-button" >More</button>
-        </div>
+        </a>
         <!-- End of main Vue instance -->
     </div>
 

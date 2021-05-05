@@ -18,7 +18,8 @@ module.exports.retrievingNextRowOfImages = (lowestId) => {
                 ) AS "lowestId" FROM images
                 WHERE id < $1
                 ORDER BY id DESC
-                LIMIT 1;`;
+                LIMIT 3;`;
+
     return db.query(q, [lowestId]);
 };
 

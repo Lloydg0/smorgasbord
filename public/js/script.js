@@ -88,6 +88,28 @@ Vue.component("image-model-component", {
                 );
             });
     },
+    watch: {
+        imageId: function () {
+            let retrieveImageId = this.imageId;
+            axios
+                .get("/imagemodel/" + retrieveImageId)
+                .then((response) => {
+                    this.image = response.data[0];
+                    let date = new Date(response.data[0].created_at);
+                    let formattedDate = new Intl.DateTimeFormat("en-GB", {
+                        dateStyle: "long",
+                        timeStyle: "short",
+                    }).format(date);
+                    this.date = formattedDate;
+                })
+                .catch((err) => {
+                    console.log(
+                        "ERROR in axios.get in retrieving the dynamic image ID model",
+                        err
+                    );
+                });
+        },
+    },
     methods: {
         closeModelOnPopUp: function () {
             console.log("Showing Image has closed model");
@@ -128,6 +150,21 @@ Vue.component("comments-component", {
                 );
             });
     },
+    watch: {
+        imageId: function () {
+            axios
+                .get("/comments/" + this.imageId)
+                .then((response) => {
+                    this.comments = response.data.payload;
+                })
+                .catch((err) => {
+                    console.log(
+                        "ERROR in axios.get for retrieving the comments for a specific image",
+                        err
+                    );
+                });
+        },
+    },
     methods: {
         submitComment: function () {
             let comment = this.comment;
@@ -144,14 +181,12 @@ Vue.component("comments-component", {
                         "axios response for posting comments",
                         response.data
                     );
+                    this.comments.push(response.data.payload[0]);
                 })
                 .catch((err) => {
                     console.log("err in POST/comment axios", err);
                 });
         },
-        // showComments: function () {
-        //     this.comments = true;
-        // },
     },
 });
 //main Vue Instance
@@ -159,7 +194,7 @@ new Vue({
     el: "#main",
     data: {
         showUpload: false,
-        imageId: null,
+        imageId: location.hash.slice(1),
         images: [],
         lowestIdOnScreen: false,
     },
@@ -168,6 +203,10 @@ new Vue({
         axios.get("/imageboard").then((response) => {
             this.images = response.data;
             console.log("images", this.images);
+        });
+
+        window.addEventListener("hashchange", () => {
+            this.imageId = location.hash.slice(1);
         });
     },
     methods: {
@@ -189,6 +228,8 @@ new Vue({
         closeImageModel: function () {
             // console.log("Showing image model close");
             this.imageId = null;
+            location.hash = "";
+            history.pushState({}, "", "/");
         },
         clickToAddMoreImages: function () {
             console.log("CLick to add more images");
@@ -202,7 +243,7 @@ new Vue({
                     this.images.push(response.data.payload[i]);
                 }
 
-                if (lowestId !== 2) {
+                if (lowestId > 1) {
                     //subject to change when completed
                     this.lowestIdOnScreen = false;
                 } else {
