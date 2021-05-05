@@ -18,8 +18,8 @@
             @click="showUploadModel" class="navbar-about">Upload</button>
         </nav>
         <!-- Vue component that pops up a single model when a single image is selected in relation to its ID -->
-        <!-- <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component> -->
-        <image-model-component :image-id='imageId' v-if='imageId' @close="addClass"></image-model-component>
+        <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
+        <!-- <image-model-component :image-id='imageId' v-if='imageId' @close="addClass"></image-model-component> -->
         <div class="card-container">
 
              <a :href="'#' + image.id" v-for="image in images" v-bind:key="image.id" class="fullCard">
@@ -78,21 +78,7 @@
                     </div>
            </div>
         </div>
-        
-        
-        <!-- <div class="full-selected-image-model-container">
-            <div class="selected-image-model">
-                    <img class="image-container-in-model" :src="image.url" alt="">
-                    <div class="text-container-in-model">
-                        <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
-                            <p class="card-description-model">{{image.description}}</p>
-                            <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
-                            <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
-                        <!-- Comments Vue Component that shows the commeents on a specific image -->
-                        <!-- <comments-component :image-id='imageId'></comments-component>
-                    </div>
-           </div>
-        </div> -->
+    
     </script>
     <!-- Upload model component -->
     <script id="upload-template" type="text/x-template">

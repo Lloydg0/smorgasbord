@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     position: fixed;
-    background-color: white;
+    /* background-color: white; */
 }
 
 /* Assigning Font poroperies to multiple Elements */
@@ -53,7 +53,7 @@ button,
 /* ---------- Main SPA display ------------ */
 
 .card-container {
-    padding: 30px 170px;
+    padding: 100px 220px 180px 220px;
     display: grid;
     /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -82,10 +82,10 @@ button,
     transform: scale(1.05);
 }
 
-/* .card-text {
+.card-text {
     padding: 5px 5px;
     text-align: left;
-} */
+}
 
 .card-images {
     border-radius: 5px 5px 0 0;
@@ -93,9 +93,9 @@ button,
     height: 100%;
 }
 
-/* .card-title {
+.card-title {
     padding-bottom: 5px;
-} */
+}
 
 /* ---------- END of Main SPA display ------------ */
 
@@ -227,11 +227,12 @@ button,
         transform: translateY(0%);
     }
 }
+
+/* Animations for bring the upload animation back to the bottom of the page */
 .minimiseUpload {
     animation: returnToBottom 750ms linear;
     animation-fill-mode: forwards;
 }
-/* animation for upload model to make it rise from the botton */
 @keyframes returnToBottom {
     0% {
         transform: translateY(0%);
@@ -286,12 +287,11 @@ button,
         opacity: 1;
     }
 }
-/* Bringing back the opacity for  Selected Image model */
+/* Bringing back the opacity for Selected Image model */
 .restoreOpacity {
     animation: returnOpacity 500ms linear;
     animation-fill-mode: forwards;
 }
-/* Bringing back the opacity for  Selected Image model(animation) */
 @keyframes returnOpacity {
     0% {
         opacity: 1;
@@ -320,6 +320,7 @@ button,
     }
 }
 
+/* Scaling back down the selected image when close is clicked */
 .minimiseSelectedImageModel {
     animation: minimiseSelectedImageModel 500ms linear;
     animation-fill-mode: forwards;
@@ -360,25 +361,6 @@ button,
     padding-top: 10px;
     cursor: pointer;
 }
-
-/* .selected-image-model-close {
-    width: 85vw;
-    height: 75vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    animation: close 500ms linear;
-}
-
-@keyframes close {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0);
-    }
-} */
 
 /* Each comment  */
 .card-comments {

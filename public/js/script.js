@@ -49,12 +49,15 @@ Vue.component("upload-component", {
                     console.log("err in POST/upload", err);
                 });
         },
-        // closeModel: function () {
-        //     // console.log("Finsihed being clicked");
-        //     this.$emit("close");
-        // },
+        closeModel: function () {
+            // console.log("Finsihed being clicked");
+            this.$emit("close");
+        },
         addClass: function () {
-            this.isAddClass = true;
+            if (this.isAddClass === false) {
+                this.isAddClass = true;
+            }
+            this.$emit("close");
         },
     },
 });
@@ -122,8 +125,13 @@ Vue.component("image-model-component", {
             this.$emit("close");
         },
         addClass: function () {
-            this.isAddClass = true;
-            this.isRemoveClass = true;
+            // this.isAddClass = true;
+            // this.isRemoveClass = true;
+
+            if (this.isAddClass === false && this.isRemoveClass === false) {
+                this.isAddClass = true;
+            }
+            this.$emit("close");
         },
     },
 });
@@ -207,6 +215,7 @@ new Vue({
         imageId: location.hash.slice(1),
         images: [],
         lowestIdOnScreen: false,
+        fadeScroll: false,
     },
     mounted: function () {
         console.log("this in mounted", this);
@@ -262,10 +271,12 @@ new Vue({
             });
         },
         addClass: function () {
+            this.addClass = true;
             // this.$emit("close");
             // this.imageId = null;
             // location.hash = "";
             // history.pushState({}, "", "/");
         },
+        fading: function () {},
     },
 });
