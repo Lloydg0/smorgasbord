@@ -18,7 +18,8 @@
             @click="showUploadModel" class="navbar-about">Upload</button>
         </nav>
         <!-- Vue component that pops up a single model when a single image is selected in relation to its ID -->
-        <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
+        <!-- <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component> -->
+        <image-model-component :image-id='imageId' v-if='imageId' @close="addClass"></image-model-component>
         <div class="card-container">
 
              <a :href="'#' + image.id" v-for="image in images" v-bind:key="image.id" class="fullCard">
@@ -63,19 +64,22 @@
     </script>
     <!-- image model componenet -->
     <script id="image-model-template" type="text/x-template">
-        <div class="full-selected-image-model-container">
-            <div class="selected-image-model">
+        <div class="full-selected-image-model-container" :class="{'restoreOpacity': isRemoveClass}">
+            <div id="scaleModel" class="selected-image-model" :class="{'minimiseSelectedImageModel': isAddClass}">
                     <img class="image-container-in-model" :src="image.url" alt="">
                     <div class="text-container-in-model">
                         <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
                             <p class="card-description-model">{{image.description}}</p>
                             <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
-                            <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
+                            <p class="close-selected-image-model" v-on:click="addClass" >Close</p>
+                            <!-- <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p> -->
                         <!-- Comments Vue Component that shows the commeents on a specific image -->
                         <comments-component :image-id='imageId'></comments-component>
                     </div>
            </div>
         </div>
+        
+        
         <!-- <div class="full-selected-image-model-container">
             <div class="selected-image-model">
                     <img class="image-container-in-model" :src="image.url" alt="">
@@ -85,7 +89,7 @@
                             <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
                             <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
                         <!-- Comments Vue Component that shows the commeents on a specific image -->
-                        <comments-component :image-id='imageId'></comments-component>
+                        <!-- <comments-component :image-id='imageId'></comments-component>
                     </div>
            </div>
         </div> -->
@@ -94,7 +98,7 @@
     <script id="upload-template" type="text/x-template">
        <!-- components can only render one element at a time -->
         <!-- but can render as many children within the one root element -->
-        <div class="model-housing">
+        <div class="model-housing" :class="{'minimiseUpload': isAddClass}">
             <div class="upload-modal-cover">
                     <div class="upload-modal-container">
                         <form class="upload-form">
@@ -104,7 +108,8 @@
                                <label for="files" class="choose-file-button">Choose a file</label>
                                <input @change="handleChange" id="files" type="file" name="file" accept="image/*">
                                <button @click.prevent="submitFile" class="upload-button">Upload</button>
-                               <label @click="closeModel" class="finsihed-button" >Finished</label>
+                               <label  class="finsihed-button"  v-on:click="addClass">Finished</label>
+                               <!-- <label @click="closeModel" class="finsihed-button"  v-on:click="addClass">Finished</label> -->
                            </form>
                     </div>
                 </div>

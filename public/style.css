@@ -216,7 +216,7 @@ button,
     height: 100vh;
     position: absolute;
     top: 85%;
-    animation: riseFromBottom 500ms linear;
+    animation: riseFromBottom 750ms linear;
 }
 /* animation for upload model to make it rise from the botton */
 @keyframes riseFromBottom {
@@ -225,6 +225,19 @@ button,
     }
     100% {
         transform: translateY(0%);
+    }
+}
+.minimiseUpload {
+    animation: returnToBottom 750ms linear;
+    animation-fill-mode: forwards;
+}
+/* animation for upload model to make it rise from the botton */
+@keyframes returnToBottom {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
     }
 }
 
@@ -273,6 +286,20 @@ button,
         opacity: 1;
     }
 }
+/* Bringing back the opacity for  Selected Image model */
+.restoreOpacity {
+    animation: returnOpacity 500ms linear;
+    animation-fill-mode: forwards;
+}
+/* Bringing back the opacity for  Selected Image model(animation) */
+@keyframes returnOpacity {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 
 .selected-image-model {
     width: 85vw;
@@ -281,7 +308,6 @@ button,
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    /* align-items: center; */
     animation: scaleSelectedImageModel 500ms linear;
 }
 /* Selected Image model animation for scaling the model up*/
@@ -293,6 +319,20 @@ button,
         transform: scale(1);
     }
 }
+
+.minimiseSelectedImageModel {
+    animation: minimiseSelectedImageModel 500ms linear;
+    animation-fill-mode: forwards;
+}
+@keyframes minimiseSelectedImageModel {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
 /* image container model */
 .image-container-in-model {
     width: 500px;
@@ -321,7 +361,7 @@ button,
     cursor: pointer;
 }
 
-.selected-image-model-close {
+/* .selected-image-model-close {
     width: 85vw;
     height: 75vh;
     display: flex;
@@ -338,7 +378,7 @@ button,
     100% {
         transform: scale(0);
     }
-}
+} */
 
 /* Each comment  */
 .card-comments {

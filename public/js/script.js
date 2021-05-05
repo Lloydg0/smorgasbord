@@ -9,6 +9,7 @@ Vue.component("upload-component", {
             description: "",
             username: "",
             file: null,
+            isAddClass: false,
         };
     },
     //mounted
@@ -48,9 +49,12 @@ Vue.component("upload-component", {
                     console.log("err in POST/upload", err);
                 });
         },
-        closeModel: function () {
-            // console.log("Finsihed being clicked");
-            this.$emit("close");
+        // closeModel: function () {
+        //     // console.log("Finsihed being clicked");
+        //     this.$emit("close");
+        // },
+        addClass: function () {
+            this.isAddClass = true;
         },
     },
 });
@@ -62,6 +66,8 @@ Vue.component("image-model-component", {
         return {
             image: [],
             date: "",
+            isAddClass: false,
+            isRemoveClass: false,
         };
     },
     mounted: function () {
@@ -114,6 +120,10 @@ Vue.component("image-model-component", {
         closeModelOnPopUp: function () {
             console.log("Showing Image has closed model");
             this.$emit("close");
+        },
+        addClass: function () {
+            this.isAddClass = true;
+            this.isRemoveClass = true;
         },
     },
 });
@@ -211,7 +221,7 @@ new Vue({
     },
     methods: {
         pushingImages: function (data) {
-            this.images.push(data);
+            this.images.unshift(data);
         },
         showUploadModel: function () {
             // console.log("Showing upload component is running");
@@ -250,6 +260,12 @@ new Vue({
                     this.lowestIdOnScreen = true;
                 }
             });
+        },
+        addClass: function () {
+            // this.$emit("close");
+            // this.imageId = null;
+            // location.hash = "";
+            // history.pushState({}, "", "/");
         },
     },
 });
