@@ -53,17 +53,18 @@ button,
 /* ---------- Main SPA display ------------ */
 
 .card-container {
-    padding: 50px 170px;
+    padding: 30px 170px;
     display: grid;
     /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-flow: row;
     /* grid-template-rows: repeat(3, 1fr); */
-    gap: 120px 120px;
+    gap: 100px 100px;
     justify-items: center;
-    align-items: stretch;
+    align-items: center;
     opacity: 1;
     overflow: hidden;
+    margin-bottom: 50px;
 }
 
 .fullCard {
@@ -81,10 +82,10 @@ button,
     transform: scale(1.05);
 }
 
-.card-text {
+/* .card-text {
     padding: 5px 5px;
     text-align: left;
-}
+} */
 
 .card-images {
     border-radius: 5px 5px 0 0;
@@ -92,9 +93,9 @@ button,
     height: 100%;
 }
 
-.card-title {
+/* .card-title {
     padding-bottom: 5px;
-}
+} */
 
 /* ---------- END of Main SPA display ------------ */
 
@@ -196,6 +197,7 @@ button,
     width: 25vh;
     margin-top: 180px;
     margin-left: 20px;
+
     /* align-content: flex-end; */
 }
 
@@ -300,10 +302,11 @@ button,
 /* text container on model */
 .text-container-in-model {
     display: block;
-    margin-top: 70px;
+    margin-top: 100px;
     margin-left: 30px;
-    height: 500px;
+    height: 400px;
     width: 500px;
+    position: relative;
 }
 
 .card-title-model,
@@ -318,20 +321,47 @@ button,
     cursor: pointer;
 }
 
+.selected-image-model-close {
+    width: 85vw;
+    height: 75vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    animation: close 500ms linear;
+}
+
+@keyframes close {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
 /* Each comment  */
 .card-comments {
-    padding: 2px 0px;
-    margin-left: 15px;
+    padding: 5px 0px;
+    margin-left: 5px;
 }
 
 /* comment box */
 .comment-box-container {
     margin-top: 40px;
     height: 200px;
-    /* width: 400px; */
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-content: center;
     overflow-y: auto;
+    position: absolute;
+    left: -243%;
+    top: 75%;
+    /* background-color: yellow; */
+}
+
+.comment-box-container::-webkit-scrollbar {
+    display: none;
 }

@@ -28,7 +28,7 @@
                             <p class="card-description">{{image.description}}</p>  -->
                     </div>
             </a>
-
+            
         </div> 
            
              <!-- <div  v-for="image in images" v-bind:key="image.id" @click="showImageModel(image.id)"  class="fullCard">
@@ -65,17 +65,30 @@
     <script id="image-model-template" type="text/x-template">
         <div class="full-selected-image-model-container">
             <div class="selected-image-model">
-                   <img class="image-container-in-model" :src="image.url" alt="">
-               <div class="text-container-in-model">
-                       <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
-                           <p class="card-description-model">{{image.description}}</p>
-                           <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
-                           <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
-                       <!-- Comments Vue Component that shows the commeents on a specific image -->
-                       <comments-component :image-id='imageId'></comments-component>
+                    <img class="image-container-in-model" :src="image.url" alt="">
+                    <div class="text-container-in-model">
+                        <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
+                            <p class="card-description-model">{{image.description}}</p>
+                            <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
+                            <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
+                        <!-- Comments Vue Component that shows the commeents on a specific image -->
+                        <comments-component :image-id='imageId'></comments-component>
                     </div>
            </div>
         </div>
+        <!-- <div class="full-selected-image-model-container">
+            <div class="selected-image-model">
+                    <img class="image-container-in-model" :src="image.url" alt="">
+                    <div class="text-container-in-model">
+                        <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
+                            <p class="card-description-model">{{image.description}}</p>
+                            <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
+                            <p class="close-selected-image-model" @click="closeModelOnPopUp">Close</p>
+                        <!-- Comments Vue Component that shows the commeents on a specific image -->
+                        <comments-component :image-id='imageId'></comments-component>
+                    </div>
+           </div>
+        </div> -->
     </script>
     <!-- Upload model component -->
     <script id="upload-template" type="text/x-template">
