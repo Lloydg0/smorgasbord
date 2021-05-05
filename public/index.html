@@ -27,6 +27,8 @@
                     <p class="card-description">{{image.description}}</p> -->
                 </div>
             </div>
+            <!-- Clicking event listener to add more rows to the image main page -->
+            <button v-if="!lowestIdOnScreen" @click="clickToAddMoreImages" class="more-button" >More</button>
         </div>
         <!-- End of main Vue instance -->
     </div>

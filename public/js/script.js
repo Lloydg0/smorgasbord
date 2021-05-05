@@ -161,14 +161,13 @@ new Vue({
         showUpload: false,
         imageId: null,
         images: [],
+        lowestIdOnScreen: false,
     },
     mounted: function () {
         console.log("this in mounted", this);
         axios.get("/imageboard").then((response) => {
-            // console.log("Response in axios", response);
-            // console.log("Response in axios", response.data);
             this.images = response.data;
-            // console.log("this in axios", this);
+            console.log("images", this.images);
         });
     },
     methods: {
@@ -190,6 +189,26 @@ new Vue({
         closeImageModel: function () {
             // console.log("Showing image model close");
             this.imageId = null;
+        },
+        clickToAddMoreImages: function () {
+            console.log("CLick to add more images");
+            console.log(
+                "Lowest IMG ID",
+                this.images[this.images.length - 1].id
+            );
+            let lowestId = this.images[this.images.length - 1].id;
+            axios.get("/imageboard/" + lowestId).then((response) => {
+                for (let i = 0; i < response.data.payload.length; i++) {
+                    this.images.push(response.data.payload[i]);
+                }
+
+                if (lowestId !== 2) {
+                    //subject to change when completed
+                    this.lowestIdOnScreen = false;
+                } else {
+                    this.lowestIdOnScreen = true;
+                }
+            });
         },
     },
 });

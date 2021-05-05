@@ -1,10 +1,25 @@
 const spicedPg = require("spiced-pg");
 const db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
-//DATABASE select information about images to display on main page
+//DATABASE select information about images to display on main page (3 at a time)
 module.exports.getImagesDataBaseInformation = () => {
-    const q = `SELECT id, url, username, title, description FROM images`;
+    const q = ` SELECT id, url, username, title, description FROM images
+                ORDER BY id DESC
+                LIMIT 3;`;
     return db.query(q);
+};
+
+// DATABASE select to retrieve older images step by step
+module.exports.retrievingNextRowOfImages = (lowestId) => {
+    const q = ` SELECT url, username, title, description, id, (
+                SELECT id FROM images
+                ORDER BY id ASC
+                LIMIT 1
+                ) AS "lowestId" FROM images
+                WHERE id < $1
+                ORDER BY id DESC
+                LIMIT 1;`;
+    return db.query(q, [lowestId]);
 };
 
 //DATABASE select all information about images referencing an image ID for clicked image

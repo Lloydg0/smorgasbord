@@ -58,7 +58,7 @@ button,
     /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-flow: row;
-    grid-template-rows: repeat(3, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
     gap: 120px 120px;
     justify-items: center;
     align-items: stretch;
@@ -126,7 +126,8 @@ button,
 .input-field-comment::placeholder,
 .choose-file-button::placeholder,
 .finsihed-button::placeholder,
-.submit-comment-button::placeholder {
+.submit-comment-button::placeholder,
+.more-button::placeholder {
     font-size: 12px;
     text-align: center;
 }
@@ -137,14 +138,22 @@ button,
 .choose-file-button:focus,
 .upload-button:focus,
 .finsihed-button:focus,
-.submit-comment-button:focus {
+.submit-comment-button:focus,
+.more-button:focus {
     outline: none;
 }
 
-.upload-button {
+.upload-button,
+.more-button {
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.more-button {
+    position: fixed;
+    bottom: 3%;
+    left: 3%;
 }
 
 #files {
@@ -153,7 +162,8 @@ button,
 }
 .choose-file-button,
 .finsihed-button,
-.submit-comment-button {
+.submit-comment-button,
+.more-button {
     border: none;
     width: 250px;
     font-size: 13.33px;
@@ -161,6 +171,9 @@ button,
     margin-top: 10px;
     cursor: pointer;
     text-align: center;
+}
+.more-button {
+    width: 50px;
 }
 
 /* ----------- END of Styling on the upload Pop up Model & various input fields and buttons ---------------- */
@@ -181,7 +194,8 @@ button,
 }
 .comments-form {
     width: 25vh;
-    margin-top: 150px;
+    margin-top: 180px;
+    margin-left: 20px;
     /* align-content: flex-end; */
 }
 
@@ -312,12 +326,12 @@ button,
 
 /* comment box */
 .comment-box-container {
-    margin-top: 85px;
+    margin-top: 40px;
     height: 200px;
     /* width: 400px; */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-content: center;
     overflow-y: auto;
 }
