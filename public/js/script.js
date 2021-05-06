@@ -9,7 +9,8 @@ Vue.component("upload-component", {
             description: "",
             username: "",
             file: null,
-            isAddClass: false,
+            isUploadAnimationClosed: false,
+            isUploadAnimationVisable: false,
         };
     },
     //mounted
@@ -49,15 +50,14 @@ Vue.component("upload-component", {
                     console.log("err in POST/upload", err);
                 });
         },
-        closeModel: function () {
-            // console.log("Finsihed being clicked");
-            this.$emit("close");
-        },
-        addClass: function () {
-            if (this.isAddClass === false) {
-                this.isAddClass = true;
+        // closeModel: function () {
+        //     console.log("Finsihed being clicked");
+        //     this.$emit("close");
+        // },
+        toggleUploadAnimationOff: function () {
+            if (this.isUploadAnimationClosed === false) {
+                this.isUploadAnimationClosed = true;
             }
-            // this.$emit("close");
         },
     },
 });
@@ -69,6 +69,8 @@ Vue.component("image-model-component", {
         return {
             image: [],
             date: "",
+            isImageModelScaledDown: false,
+            isOpacityBackFull: false,
         };
     },
     mounted: function () {
@@ -118,9 +120,20 @@ Vue.component("image-model-component", {
         },
     },
     methods: {
-        closeModelOnPopUp: function () {
+        toggleOffSelectedImageModel: function () {
             console.log("Showing Image has closed model");
-            this.$emit("close");
+            console.log("THIS", this);
+            if (
+                this.isImageModelScaledDown === false &&
+                this.isOpacityBackFull === false
+            ) {
+                this.isImageModelScaledDown = true;
+                this.isOpacityBackFull = true;
+                console.log("MADE it inside IF block");
+                setTimeout(() => {
+                    this.$emit("close");
+                }, 501);
+            }
         },
     },
 });
@@ -200,10 +213,10 @@ Vue.component("comments-component", {
 new Vue({
     el: "#main",
     data: {
-        showUpload: false,
         imageId: location.hash.slice(1),
         images: [],
         lowestIdOnScreen: false,
+        isUploadAnimationVisable: false,
     },
     mounted: function () {
         console.log("this in mounted", this);
@@ -220,18 +233,13 @@ new Vue({
         pushingImages: function (data) {
             this.images.unshift(data);
         },
-        showUploadModel: function () {
-            // console.log("Showing upload component is running");
-            this.showUpload = true;
-        },
-        closeUploadModel: function () {
-            // console.log("Closing the model is running!");
-
-            this.showUpload = false;
-        },
-        showImageModel: function (imageId) {
-            // console.log("Showing image model work", imageId);
-            this.imageId = imageId;
+        toggleUploadAnimationOn: function () {
+            console.log("Showing upload component is running");
+            if (this.isUploadAnimationVisable === false) {
+                this.isUploadAnimationVisable = true;
+            } else {
+                this.isUploadAnimationVisable = false;
+            }
         },
         closeImageModel: function () {
             // console.log("Showing image model close");

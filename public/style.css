@@ -216,8 +216,14 @@ button,
     height: 100vh;
     position: absolute;
     top: 85%;
-    animation: riseFromBottom 750ms linear;
 }
+
+/* Acitve class for upload animation */
+.uploadAppear {
+    animation: riseFromBottom 750ms linear;
+    animation-fill-mode: forwards;
+}
+
 /* animation for upload model to make it rise from the botton */
 @keyframes riseFromBottom {
     0% {
@@ -228,10 +234,10 @@ button,
     }
 }
 
-/* Animations for bring the upload animation back to the bottom of the page */
+/* disabled class for upload animation*/
 .minimiseUpload {
     animation: returnToBottom 750ms linear;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
 }
 @keyframes returnToBottom {
     0% {
@@ -264,7 +270,7 @@ button,
 }
 /* End of Model housing's for upload model */
 
-/* Model housing for selected Image model */
+/* Model housing for selected Image model + enterence animation */
 .full-selected-image-model-container {
     display: flex;
     justify-content: center;
@@ -276,9 +282,8 @@ button,
     z-index: 2;
     background-color: white;
     animation: opacity 500ms linear;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
 }
-/* Selected Image model animation for background opacity */
 @keyframes opacity {
     0% {
         opacity: 0;
@@ -288,11 +293,11 @@ button,
     }
 }
 /* Bringing back the opacity for Selected Image model */
-.restoreOpacity {
-    animation: returnOpacity 500ms linear;
-    animation-fill-mode: both;
+.restoreOpacityToFull {
+    animation: returnOpacityToFull 500ms linear;
+    animation-fill-mode: forwards;
 }
-@keyframes returnOpacity {
+@keyframes returnOpacityToFull {
     0% {
         opacity: 1;
     }
@@ -301,6 +306,7 @@ button,
     }
 }
 
+/* Selected Image model animation for scaling the model up*/
 .selected-image-model {
     width: 85vw;
     height: 75vh;
@@ -311,7 +317,6 @@ button,
     animation: scaleSelectedImageModel 500ms linear;
     animation-fill-mode: both;
 }
-/* Selected Image model animation for scaling the model up*/
 @keyframes scaleSelectedImageModel {
     0% {
         transform: scale(0);
@@ -322,11 +327,11 @@ button,
 }
 
 /* Scaling back down the selected image when close is clicked */
-.minimiseSelectedImageModel {
-    animation: minimiseSelectedImageModel 500ms linear;
+.scaleDownImageModel {
+    animation: scaleDownImageModel 500ms linear;
     animation-fill-mode: both;
 }
-@keyframes minimiseSelectedImageModel {
+@keyframes scaleDownImageModel {
     0% {
         transform: scale(1);
     }
