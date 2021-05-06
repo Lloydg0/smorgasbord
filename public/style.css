@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     position: fixed;
-    /* background-color: white; */
+    background-color: white;
 }
 
 /* Assigning Font poroperies to multiple Elements */
@@ -231,7 +231,7 @@ button,
 /* Animations for bring the upload animation back to the bottom of the page */
 .minimiseUpload {
     animation: returnToBottom 750ms linear;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
 }
 @keyframes returnToBottom {
     0% {
@@ -276,7 +276,7 @@ button,
     z-index: 2;
     background-color: white;
     animation: opacity 500ms linear;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
 }
 /* Selected Image model animation for background opacity */
 @keyframes opacity {
@@ -290,7 +290,7 @@ button,
 /* Bringing back the opacity for Selected Image model */
 .restoreOpacity {
     animation: returnOpacity 500ms linear;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
 }
 @keyframes returnOpacity {
     0% {
@@ -309,6 +309,7 @@ button,
     justify-content: center;
     align-items: flex-start;
     animation: scaleSelectedImageModel 500ms linear;
+    animation-fill-mode: both;
 }
 /* Selected Image model animation for scaling the model up*/
 @keyframes scaleSelectedImageModel {
@@ -323,7 +324,7 @@ button,
 /* Scaling back down the selected image when close is clicked */
 .minimiseSelectedImageModel {
     animation: minimiseSelectedImageModel 500ms linear;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
 }
 @keyframes minimiseSelectedImageModel {
     0% {

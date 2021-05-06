@@ -70,9 +70,10 @@ app.get("/imageboard/:lowestId", (req, res) => {
 //GET request for a specific image for the single model PopUp
 app.get("/imagemodel/:imageId", (req, res) => {
     const { imageId } = req.params;
+    console.log("imageId", imageId);
     db.getImagesDataBaseInformationForModel(imageId)
         .then((result) => {
-            // console.log("DATA BASE INFO for Model", result.rows);
+            console.log("DATA BASE INFO for Model", result.rows);
             res.json(result.rows);
         })
         .catch((err) => {
@@ -88,10 +89,14 @@ app.get("/comments/:imageId", (req, res) => {
     const { imageId } = req.params;
     db.retrieveImageComments(imageId)
         .then((result) => {
-            // console.log(
-            //     "Get request for getting comments on selected image",
-            //     result
-            // );
+            console.log(
+                "Get request for getting comments on selected image",
+                result
+            );
+            console.log(
+                "Get request for getting comments on selected image",
+                result.rows
+            );
             res.json({
                 success: true,
                 payload: result.rows,
