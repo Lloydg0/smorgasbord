@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/style.css">
+    <title>Smorgasbord</title>
+</head>
+<body>
+    <!-- Main Vue component -->
+    <div id="main">
+        <!-- NavBar containing the Upload Vue component that pops up the Upload model to add a new image -->
+        <nav class="navbar">
+            <h4 class="navbar-title">Smorgasbord</h4>
+            <upload-component v-if='isUploadAnimationVisable' @imagepush="pushingImages" v-bind:class="{'uploadAppear': isUploadAnimationVisable}"></upload-component>
+            <button @click="toggleUploadAnimationOn" class="navbar-about">Upload</button>
+        </nav>
+        <!-- Vue component that pops up a single model when a single image is selected in relation to its ID -->
+        <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
+        <!-- <image-model-component :image-id='imageId' v-if='imageId' @close="addClass"></image-model-component> -->
+        <div class="card-container">
+             <a :href="'#' + image.id" v-for="image in images" v-bind:key="image.id" class="fullCard">
+                <img  class="card-images" :src="image.url" alt="">
+            </a>   
+        </div> 
+            <!-- Clicking event listener to add more rows to the image main page -->
+            <button v-if="!lowestIdOnScreen" @click="clickToAddMoreImages" class="more-button" >More</button>
+        <!-- End of main Vue instance -->
+    </div>
+
+    <!-- componants go outside the #main element -->
+    <!-- comments component -->
+    <script id="comments-template" type="text/x-template">
+        <div>
+            <form class="comments-form">
+                <input v-model="comment" class="input-field-comment" type="text" name="comment" id="" placeholder="Comment">
+                <input v-model="username" class="input-field-comment" type="text" name="username" id="" placeholder="Username">
+                <label @click.prevent="submitComment" class="submit-comment-button">Submit</label>
+                <div class="comment-box-container">
+                    <div v-for="comment in comments">
+                        <p class="card-comments"><strong>{{comment.username}}</strong> says: {{comment.comment_text}}  </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    <!-- image model componenet -->
+    <script id="image-model-template" type="text/x-template">
+        <div class="full-selected-image-model-container" v-bind:class="{'restoreOpacityToFull': isOpacityBackFull}">
+            <div id="scaleModel" class="selected-image-model" :class="{'scaleDownImageModel': isImageModelScaledDown}">
+                    <img class="image-container-in-model" :src="image.url" alt="">
+                    <div class="text-container-in-model">
+                        <h4 class="card-title-model"><strong>{{image.title}}</strong></h4>
+                            <p class="card-description-model">{{image.description}}</p>
+                            <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
+                            <p class="close-selected-image-model" @click="toggleOffSelectedImageModel">Close</p>
+                        <!-- Comments Vue Component that shows the commeents on a specific image -->
+                        <comments-component :image-id='imageId'></comments-component>
+                    </div>
+           </div>
+        </div>
+    
+    </script>
+    <!-- Upload model component -->
+    <script id="upload-template" type="text/x-template">
+       <!-- components can only render one element at a time -->
+        <!-- but can render as many children within the one root element -->
+        <div class="model-housing" :class="{'minimiseUpload': isUploadAnimationClosed}" >
+            <div class="upload-modal-cover">
+                    <div class="upload-modal-container">
+                        <form class="upload-form">
+                               <input v-model="title" class="input-field" type="text" name="title" id="" placeholder="Title">
+                               <input v-model="description" class="input-field" type="text" name="description" id="" placeholder="Description">
+                               <input v-model="username" class="input-field" type="text" name="username" id="" placeholder="Username">
+                               <label for="files" class="choose-file-button">Choose a file</label>
+                               <input @change="handleChange" id="files" type="file" name="file" accept="image/*">
+                               <button @click.prevent="submitFile" class="upload-button">Upload</button>
+                               <label  class="finsihed-button"  v-on:click="toggleUploadAnimationOff">Finished</label>
+                           </form>
+                    </div>
+                </div>
+        </div>
+    </script>
+    
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/script.js"></script>
+    </body>
+    </html>
+    
