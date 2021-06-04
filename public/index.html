@@ -10,26 +10,22 @@
 <body>
     <!-- Main Vue component -->
     <div id="main">
-        <!-- NavBar containing the Upload Vue component that pops up the Upload model to add a new image -->
         <nav class="navbar">
             <h4 class="navbar-title">Smorgasbord</h4>
             <upload-component v-if='isUploadAnimationVisable' @imagepush="pushingImages" v-bind:class="{'uploadAppear': isUploadAnimationVisable}"></upload-component>
             <button @click="toggleUploadAnimationOn" class="navbar-about">Upload</button>
         </nav>
-        <!-- Vue component that pops up a single model when a single image is selected in relation to its ID -->
         <image-model-component :image-id='imageId' v-if='imageId' @close="closeImageModel"></image-model-component>
-        <!-- <image-model-component :image-id='imageId' v-if='imageId' @close="addClass"></image-model-component> -->
         <div class="card-container">
              <a :href="'#' + image.id" v-for="image in images" v-bind:key="image.id" class="fullCard">
                 <img  class="card-images" :src="image.url" alt="">
             </a>   
         </div> 
-            <!-- Clicking event listener to add more rows to the image main page -->
             <button v-if="!lowestIdOnScreen" @click="clickToAddMoreImages" class="more-button" >More</button>
         <!-- End of main Vue instance -->
     </div>
 
-    <!-- componants go outside the #main element -->
+
     <!-- comments component -->
     <script id="comments-template" type="text/x-template">
         <div>
@@ -55,7 +51,6 @@
                             <p class="card-description-model">{{image.description}}</p>
                             <p class="card-description-model">Uploaded by {{image.username}} on {{date}}</p>
                             <p class="close-selected-image-model" @click="toggleOffSelectedImageModel">Close</p>
-                        <!-- Comments Vue Component that shows the commeents on a specific image -->
                         <comments-component :image-id='imageId'></comments-component>
                     </div>
            </div>
@@ -64,8 +59,6 @@
     </script>
     <!-- Upload model component -->
     <script id="upload-template" type="text/x-template">
-       <!-- components can only render one element at a time -->
-        <!-- but can render as many children within the one root element -->
         <div class="model-housing" :class="{'minimiseUpload': isUploadAnimationClosed}" >
             <div class="upload-modal-cover">
                     <div class="upload-modal-container">

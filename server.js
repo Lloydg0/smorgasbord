@@ -22,8 +22,7 @@ const diskStorage = multer.diskStorage({
 const uploader = multer({
     storage: diskStorage,
     limits: {
-        fileSize: 2097152, //files over 2mb cannot be uploaded used to stop ddos attacks (if upload does not work, check the size of the file as it might be too big and not a bug in the code).
-    },
+        fileSize: 2097152, 
 });
 ////// end of code that uploads the files
 
@@ -44,41 +43,35 @@ app.use(express.json());
 app.get("/imageboard", (req, res) => {
     db.getImagesDataBaseInformation()
         .then((result) => {
-            console.log("DATA BASE INFO", result.rows);
             res.json(result.rows);
         })
         .catch((err) => {
-            console.log("ERROR in retrieving Information from Database", err);
+            console.log(err);
         });
 });
 //Get request got more images (pagination)
 app.get("/imageboard/:lowestId", (req, res) => {
-    console.log("REQ.PARAMS", req.params);
     const { lowestId } = req.params;
     db.retrievingNextRowOfImages(lowestId)
         .then((result) => {
-            console.log("Returning Next row of images", result.rows);
             res.json({
                 success: true,
                 payload: result.rows,
             });
         })
         .catch((err) => {
-            console.log("ERROR in retrieving Information from Database", err);
+            console.log(err);
         });
 });
 //GET request for a specific image for the single model PopUp
 app.get("/imagemodel/:imageId", (req, res) => {
     const { imageId } = req.params;
-    console.log("imageId", imageId);
     db.getImagesDataBaseInformationForModel(imageId)
         .then((result) => {
-            console.log("DATA BASE INFO for Model", result.rows);
             res.json(result.rows);
         })
         .catch((err) => {
             console.log(
-                "ERROR in retrieving Information from Database for the single image model",
                 err
             );
         });
@@ -89,14 +82,6 @@ app.get("/comments/:imageId", (req, res) => {
     const { imageId } = req.params;
     db.retrieveImageComments(imageId)
         .then((result) => {
-            console.log(
-                "Get request for getting comments on selected image",
-                result
-            );
-            console.log(
-                "Get request for getting comments on selected image",
-                result.rows
-            );
             res.json({
                 success: true,
                 payload: result.rows,
@@ -104,7 +89,6 @@ app.get("/comments/:imageId", (req, res) => {
         })
         .catch((err) => {
             console.log(
-                "ERROR in retrieving comments information from DATABASE",
                 err
             );
         });
@@ -112,34 +96,24 @@ app.get("/comments/:imageId", (req, res) => {
 
 //POST request for adding comments
 app.post("/comments", (req, res) => {
-    console.log("Adding comments worked!");
-    console.log("Seeing the request body inserted", req.body);
     const { imageId, comment, username } = req.body;
     db.postingComments(imageId, comment, username)
         .then((result) => {
-            console.log("Result in posting comments", result.rows);
             res.json({
                 success: true,
                 payload: result.rows,
             });
         })
         .catch((err) => {
-            console.log("ERROR in posting comments", err);
+            console.log(err);
         });
 });
 
 //POST request to uploads the images
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    console.log("upload Worked!!!!");
-    //insert into DB  (filename, title, description, username)
-    console.log("req.body", req.body);
-    console.log("req.file", req.file); // req.file comes fom multer
     if (req.file) {
-        // this will run if everything works
         let s3Url = s3url.s3Url;
         const prefixedFilename = s3Url.concat(req.file.filename);
-        console.log("Prefixed Filename", prefixedFilename);
-        //instert into images
         db.addImageUploadToAWS(
             prefixedFilename,
             req.body.username,
@@ -147,20 +121,15 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             req.body.description
         )
             .then((result) => {
-                console.log("Result in addimageUpload to AWS", result);
-                // send back a response using res.json
                 res.json({
                     success: true,
                     payload: result.rows,
                 });
             })
             .catch((err) => {
-                console.log("Error in adding the img to AWS", err);
+                console.log(err);
             });
     } else {
-        //this runs if something broke
-        // send back a response to vue using res.json
-        // the response we send back needs to be something that indicates the upload didnt work
         res.json({
             success: false,
         });

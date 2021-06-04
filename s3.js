@@ -3,9 +3,9 @@ const fs = require("fs");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
+    secrets = process.env;
 } else {
-    secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
+    secrets = require("./secrets");
 }
 
 const s3 = new aws.S3({
@@ -33,14 +33,10 @@ exports.upload = (req, res, next) => {
 
     promise
         .then(() => {
-            // it worked!!!
-            console.log("amazon upload complete");
-            // fs.unlink(path, () => {}); // deletes the image from the uploads folder after its uploaded to aws
             next();
         })
         .catch((err) => {
-            // uh oh
-            console.log("err in s3 upload put object", err);
+            console.log(err);
             res.sendStatus(404);
         });
 };
