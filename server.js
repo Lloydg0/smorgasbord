@@ -22,7 +22,8 @@ const diskStorage = multer.diskStorage({
 const uploader = multer({
     storage: diskStorage,
     limits: {
-        fileSize: 2097152, 
+        fileSize: 2097152,
+    },
 });
 ////// end of code that uploads the files
 
@@ -71,9 +72,7 @@ app.get("/imagemodel/:imageId", (req, res) => {
             res.json(result.rows);
         })
         .catch((err) => {
-            console.log(
-                err
-            );
+            console.log(err);
         });
 });
 
@@ -88,9 +87,7 @@ app.get("/comments/:imageId", (req, res) => {
             });
         })
         .catch((err) => {
-            console.log(
-                err
-            );
+            console.log(err);
         });
 });
 
